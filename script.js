@@ -6,9 +6,9 @@ $(document).ready(function(){
   $('#currentDay').append(day);
   console.log(day.slice(14,16));
   
-})
+ //})
 
-$(function () {
+ //$(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -19,7 +19,7 @@ $(function () {
   saveBtnEl.on('click', function () {
     var text = $(this).siblings("textarea").val(); //save as string
     var hrKey = $(this).parent().attr("id"); // save as string
-    var status = $(this).parent().attr("class");
+    var status = $(this).parent().attr("class"); // read the updated status class for later use
     console.log(typeof(text));
     console.log(hrKey.slice(5,17));
     console.log(status);
@@ -31,18 +31,30 @@ $(function () {
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
-  var currentHr = day.slice(14,16);
-  var planHr = hrKey.slice(5,17);
-  if (planHr < currentHr) {
-    // past
+  var timeBlocks = $(".time-block");
 
-  }
-  else if (planHr = currentHr) {
-    // present
-  }
-  else if (planHr > currentHr) {
-    // future
-  }
+  timeBlocks.each(function() {
+    var hrKey = $(this).attr("id");
+
+    var currentHr = day.slice(14,16);
+    var planHr = hrKey.split("-")[1]
+
+    console.log(+currentHr + " vs. " + +planHr);
+    
+
+    if (+planHr < +currentHr) {
+      // past
+      $(this).addClass("past");
+    }
+    else if (+planHr == +currentHr) {
+      // present
+      $(this).addClass("present");
+    }
+    else if (+planHr > +currentHr) {
+      // future
+      $(this).addClass("future");
+    }
+  })
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?

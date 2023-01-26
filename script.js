@@ -18,8 +18,9 @@ $(document).ready(function(){
     console.log(typeof(text));
     console.log(hrKey.slice(5,17));
     console.log(status);
-    localStorage.setItem("hrKey", JSON.stringify(hrKey));
-    localStorage.setItem("text", JSON.stringify(text));
+    hrKey = hrKey.split("-").pop()
+    //localStorage.setItem("hrKey", JSON.stringify(hrKey));
+    localStorage.setItem(hrKey, JSON.stringify(text));
   });
   
   // TODO: Add code to apply the past, present, or future class to each time
@@ -52,9 +53,13 @@ $(document).ready(function(){
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
-  var storedhrKey = JSON.parse(localStorage.getItem("hrKey"));
-  var storedtext = JSON.parse(localStorage.getItem("text"));
-  console.log(storedhrKey + "  :   " + storedtext);
+  //var storedhrKey = JSON.parse(localStorage.getItem("hrKey"));
+  //var storedtext = JSON.parse(localStorage.getItem("text"));
+  //console.log(storedhrKey + "  :   " + storedtext);
+
+  for (var i = 9; i < 19; i++) {
+    console.log('text', JSON.parse(localStorage.getItem(i)), 'hour: ', i);
+  }
 
 
   // TODO: Add code to display the current date in the header of the page.

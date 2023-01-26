@@ -3,12 +3,7 @@
 // in the html.
 $(document).ready(function(){
   var day = dayjs().format('MMM D, YYYY, hh:mm:ss');
-  $('#currentDay').append(day);
-  console.log(day.slice(14,16));
   
- //})
-
- //$(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -23,7 +18,8 @@ $(document).ready(function(){
     console.log(typeof(text));
     console.log(hrKey.slice(5,17));
     console.log(status);
-    localStorage.setItem(hrKey, text);
+    localStorage.setItem("hrKey", JSON.stringify(hrKey));
+    localStorage.setItem("text", JSON.stringify(text));
   });
   
   // TODO: Add code to apply the past, present, or future class to each time
@@ -40,8 +36,6 @@ $(document).ready(function(){
     var planHr = hrKey.split("-")[1]
 
     console.log(+currentHr + " vs. " + +planHr);
-    
-
     if (+planHr < +currentHr) {
       // past
       $(this).addClass("past");
@@ -58,6 +52,11 @@ $(document).ready(function(){
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
-  //
+  var storedhrKey = JSON.parse(localStorage.getItem("hrKey"));
+  var storedtext = JSON.parse(localStorage.getItem("text"));
+  console.log(storedhrKey + "  :   " + storedtext);
+
+
   // TODO: Add code to display the current date in the header of the page.
+  $('#currentDay').append(day);
 });

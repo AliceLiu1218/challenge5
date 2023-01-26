@@ -14,13 +14,9 @@ $(document).ready(function(){
   saveBtnEl.on('click', function () {
     var text = $(this).siblings("textarea").val(); //save as string
     var hrKey = $(this).parent().attr("id"); // save as string
-    var status = $(this).parent().attr("class"); // read the updated status class for later use
-    console.log(typeof(text));
-    console.log(hrKey.slice(5,17));
-    console.log(status);
-    hrKey = hrKey.split("-").pop()
-    //localStorage.setItem("hrKey", JSON.stringify(hrKey));
-    localStorage.setItem(hrKey, JSON.stringify(text));
+    hrKey = hrKey.split("-").pop();
+    localStorage.setItem(hrKey,text);
+
   });
   
   // TODO: Add code to apply the past, present, or future class to each time
@@ -33,7 +29,8 @@ $(document).ready(function(){
   timeBlocks.each(function() {
     var hrKey = $(this).attr("id");
 
-    var currentHr = day.slice(14,16);
+    var currentHr = dayjs().hour();
+    console.log(currentHr);
     var planHr = hrKey.split("-")[1]
 
     console.log(+currentHr + " vs. " + +planHr);
@@ -53,12 +50,13 @@ $(document).ready(function(){
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
-  //var storedhrKey = JSON.parse(localStorage.getItem("hrKey"));
-  //var storedtext = JSON.parse(localStorage.getItem("text"));
-  //console.log(storedhrKey + "  :   " + storedtext);
+
 
   for (var i = 9; i < 19; i++) {
-    console.log('text', JSON.parse(localStorage.getItem(i)), 'hour: ', i);
+    $(`#hour-${i} textarea`).val(localStorage.getItem(i));
+      
+    
+    
   }
 
 

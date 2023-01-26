@@ -4,6 +4,7 @@
 $(document).ready(function(){
   var day = dayjs().format('MMM D, YYYY, hh:mm:ss');
   $('#currentDay').append(day);
+  console.log(day.slice(14,16));
   
 })
 
@@ -16,10 +17,12 @@ $(function () {
   // useful when saving the description in local storage?
   var saveBtnEl = $('.saveBtn');
   saveBtnEl.on('click', function () {
-    var text = $(this).siblings("textarea").val(); //what does this refering to?the div section?
-    var hrKey = $(this).siblings(".hour");
-    console.log(text);
-    console.log(hrKey);
+    var text = $(this).siblings("textarea").val(); //save as string
+    var hrKey = $(this).parent().attr("id"); // save as string
+    var status = $(this).parent().attr("class");
+    console.log(typeof(text));
+    console.log(hrKey.slice(5,17));
+    console.log(status);
     localStorage.setItem(hrKey, text);
   });
   
@@ -28,7 +31,18 @@ $(function () {
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
-  //
+  var currentHr = day.slice(14,16);
+  var planHr = hrKey.slice(5,17);
+  if (planHr < currentHr) {
+    // past
+
+  }
+  else if (planHr = currentHr) {
+    // present
+  }
+  else if (planHr > currentHr) {
+    // future
+  }
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
